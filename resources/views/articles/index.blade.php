@@ -18,7 +18,7 @@
                     @foreach($articles as $article)
                     <tr>
                         <th scope="row">{{ $article->id }}</th>
-                        <td>{{ $article->name }}</td>
+                        <td><a href="{{ route('article.show', $article->id) }}">{{ $article->name }}</a></td>
                         <td>{{ $article->body }}</td>
                     </tr>
                     @endforeach
