@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -25,16 +27,33 @@ class ArticleController extends Controller
         return view('articles.create', compact('article'));
     }
 
-    function store(Request $request)
+    function store(ArticleRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:articles',
-            'body' => 'required|min:100',
-        ]);
+        $data = $request->validated();
 
         $article = new Article();
         $article->fill($data);
         $article->save();
+        $request->session()->flash('status', 'Article was created!');
+
+        return redirect()->route('articles.index');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.edit', compact('article'));
+    }
+
+    public function update(UpdateArticleRequest $request, $id)
+    {
+        $article = Article::findOrFail($id);
+        $data = $request->validated();
+
+        $article->fill($data);
+        $article->save();
+
+        $request->session()->flash('status', 'Article was updated!');
 
         return redirect()->route('articles.index');
     }

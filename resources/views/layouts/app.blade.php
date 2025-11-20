@@ -10,9 +10,14 @@
 </head>
 <body>
 <header>
+    @if (session()->has('status'))
+        <div class="alert alert-success">
+            {{ session()->get('status') }}
+        </div>
+    @endif
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('pages.home') }}">Navbar</a>
+            <a class="navbar-brand" href="{{ route('pages.home') }}">Articles</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,7 +25,7 @@
                 <div class="navbar-nav">
                     <a class="nav-link {{ Route::currentRouteName() === 'pages.home' ? 'active' : '' }}" aria-current="page" href="{{ route('pages.home') }}">Home</a>
                     <a class="nav-link {{ Route::currentRouteName() === 'articles.index' ? 'active' : '' }}" href="{{ route('articles.index') }}">Articles</a>
-{{--                    <a class="nav-link" href="#">Pricing</a>--}}
+                    <a class="nav-link {{ Route::currentRouteName() === 'articles.create' ? 'active' : '' }}" href="{{ route('articles.create') }}">Create</a>
                 </div>
             </div>
         </div>

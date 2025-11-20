@@ -4,9 +4,9 @@
 
 <div class="container">
     <div class="row">
-        {{ html()->modelForm($article, 'POST', route('articles.store'))->open() }}
+        {{ html()->modelForm($article, 'PATCH', route('articles.update', $article))->open() }}
         @include('articles.form')
-        {{ html()->submit('Создать')->class('btn btn-primary') }}
+        {{ html()->submit('Обновить')->class('btn btn-primary') }}
         {{ html()->closeModelForm() }}
     </div>
 </div>
